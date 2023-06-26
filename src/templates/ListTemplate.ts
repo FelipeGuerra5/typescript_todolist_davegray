@@ -28,24 +28,26 @@ export default class ListTemplate implements DOMList {
             const li: HTMLLIElement = document.createElement("li")
             li.className = item.id
 
-            // input
+            // Input
             const check: HTMLInputElement = document.createElement("input")
             check.type = "checkbox"
             check.id = item.id
+            check.tabIndex = 0
             check.checked = item.checked
+            li.append(check)
 
             check.addEventListener("check", () => {
                 item.checked = !item.checked
+                fullList.save()
             })
-            li.append(check)
 
-            // label
+            // Label
             const label: HTMLLabelElement = document.createElement("label")
             label.htmlFor = item.id
             label.textContent = item.item
             li.append(label)
 
-            // button
+            // Button
             const button: HTMLButtonElement = document.createElement("button")
             button.textContent = "X"
             button.id = item.id
