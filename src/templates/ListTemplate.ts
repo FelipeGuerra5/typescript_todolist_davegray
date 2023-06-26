@@ -59,7 +59,6 @@ export default class ListTemplate implements DOMList {
 
             this.ul.append(li)
         })
-
     }
 }
 
