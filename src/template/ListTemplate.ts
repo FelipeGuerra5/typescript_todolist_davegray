@@ -11,7 +11,7 @@ interface DOMList {
 // Must implement the DOM 
 
 export default class ListTemplate implements DOMList {
-    static interface: ListTemplate = new ListTemplate()
+    static instance: ListTemplate = new ListTemplate()
 
     ul: HTMLUListElement
 
@@ -54,8 +54,10 @@ export default class ListTemplate implements DOMList {
             const button: HTMLButtonElement = document.createElement("button")
             button.textContent = "X"
             button.id = item.id
+            button.className = "button"
             button.addEventListener("click", () => {
                 fullList.removeItem(item.id)
+                this.render(fullList)
             })
             li.append(button)
 
