@@ -34,7 +34,6 @@ export default class FullList implements List {
             FullList.instance.addItem(newListItem)
         })
 
-
     }
 
     save(): void {

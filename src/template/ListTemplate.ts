@@ -26,20 +26,40 @@ export default class ListTemplate implements DOMList {
     render(fullList: FullList): void {
         this.clear()
 
-        const counter = 1
-
-        fullList.list.forEach(el => {
+        fullList.list.forEach(item => {
+            // Create the li element
             const li: HTMLLIElement = document.createElement('li')
-            li.innerHTML = `
-                <li class="item">
-                    <input type="checkbox" id=${el.id}>
-                    <label for=${counter}>${el.item}</label>
-                    <button class="button">${el.checked}</button>
-                </li>
-                `
-            // Although the up solution is OK 
-            // The best practice dictates it should be created each item for better handling
-            this.ul!.appendChild(li)
+            li.className = item.item
+
+            // Create the input Element
+            const check: HTMLInputElement = document.createElement('input')
+            check.type = "checkbox"
+            check.id = item.id
+            check.tabIndex = 0
+            check.checked = item.checked
+            li.append(check)
+
+            check.addEventListener('change', () => {
+                item.checked = !item.checked
+                fullList.save()
+            })
+
+            // Create the Label element
+            const label: HTMLLabelElement = document.createElement("label")
+            label.htmlFor = item.id
+            label.textContent = item.item
+            li.append(label)
+
+            // Create the button element
+            const button: HTMLButtonElement = document.createElement("button")
+            button.textContent = "X"
+            button.id = item.id
+            button.addEventListener("click", () => {
+                fullList.removeItem(item.id)
+            })
+            li.append(button)
+
+            this.ul.append(li)
         })
 
 
